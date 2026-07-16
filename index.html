@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideConnect for KTM | Premium TFT Navigation & Telemetry</title>
+
+    <!-- Meta Descriptions for SEO -->
+    <meta name="description"
+        content="A premium Android application for KTM adventure and street motorcycles. Stream navigation data and engine telemetry in real time via BLE straight to your bike's TFT display.">
+    <meta name="keywords"
+        content="KTM, RideConnect, TFT navigation, BLE, Bluetooth Low Energy, motorcycle telemetry, Android, Bosch PRPC, GPX, navigation">
+    <meta name="author" content="Akshay Kadam">
+
+    <!-- Google Fonts: Oswald (aggressive, heavy, Display) and Rajdhani (squarish, technical, Body/Stats) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Rajdhani:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom Style Link -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- STICKY NAVBAR -->
+    <nav class="navbar" id="main-navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <img src="Assets/RideConnect.png" alt="RideConnect Logo" class="logo-image">
+            </a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#simulator" class="nav-link-item">TFT Simulator</a></li>
+                <li><a href="#features" class="nav-link-item">Specifications</a></li>
+                <li><a href="#gallery" class="nav-link-item">App Interface</a></li>
+                <li><a href="#setup" class="nav-link-item">Setup Guide</a></li>
+                <li>
+                    <a href="https://akshayykadam.github.io/" target="_blank" class="nav-cta btn-cut-secondary">
+                        <span class="btn-inner">Developer</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://drive.google.com/file/d/1LewjHG80CpoNd0A3vHhB8E2GZ8tqhxSk/view?usp=drive_link" target="_blank" class="nav-cta btn-cut-primary">
+                        <span class="btn-inner">Get APK</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO HEADER SECTION -->
+    <header class="hero-section" id="hero">
+        <div class="radial-glow"></div>
+        <div class="hero-container text-right-layout">
+            <div class="hero-content">
+                <div class="brand-badge-cut">
+                    <span>READY TO CONNECT</span>
+                </div>
+                <h1 class="hero-title">GET THE KTM TFT NAVIGATION SYSTEM YOUR BIKE DESERVES</h1>
+                <p class="hero-subtitle">
+                    A serverless BLE client that hooks directly into your phone's navigation notifications to stream
+                    turn-by-turn routing and real-time engine telemetry straight to your KTM's TFT console.
+                </p>
+                <div class="hero-actions">
+                    <a href="https://drive.google.com/file/d/1LewjHG80CpoNd0A3vHhB8E2GZ8tqhxSk/view?usp=drive_link" target="_blank" class="btn-cut-primary hero-btn">
+                        <span class="btn-inner">Download APK</span>
+                    </a>
+                    <a href="#simulator" class="btn-cut-secondary hero-btn">
+                        <span class="btn-inner">Try Simulator</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- INTERACTIVE LIVE DASHBOARD SIMULATOR (THE TFT DISPLAY) -->
+    <section class="simulator-section" id="simulator">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">LIVE INTERACTIVE TFT SIMULATOR</h2>
+                <div class="section-divider"></div>
+                <p class="section-desc">
+                    Experience how RideConnect streams live telemetry and custom turn-by-turn navigation alerts onto the
+                    bike's active console. Click the riding scenarios below to test the simulator in real time.
+                </p>
+            </div>
+
+            <div class="simulator-layout">
+                <!-- SCENARIO CONTROLS (Console Command Board) -->
+                <div class="console-controls">
+                    <h3 class="console-title font-rajdhani">SCENARIO CONTROLLER</h3>
+                    <p class="console-subtitle font-rajdhani">SELECT RUNTIME CONFIGURATION</p>
+                    <div class="scenario-buttons">
+                        <button class="btn-scenario" data-scenario="scanning" id="btn-scan">
+                            <span class="scenario-num">01</span>
+                            <span class="scenario-name">BLE CONNECTION SCAN</span>
+                        </button>
+                        <button class="btn-scenario" data-scenario="cruising" id="btn-cruise">
+                            <span class="scenario-num">02</span>
+                            <span class="scenario-name">STABLE HIGHWAY CRUISE</span>
+                        </button>
+                        <button class="btn-scenario active" data-scenario="cornering" id="btn-corner">
+                            <span class="scenario-num">03</span>
+                            <span class="scenario-name">MOUNTAIN APEX / TURN ALERT</span>
+                        </button>
+                        <button class="btn-scenario" data-scenario="redline" id="btn-redline">
+                            <span class="scenario-num">04</span>
+                            <span class="scenario-name">PERFORMANCE SPRINT (REDLINE)</span>
+                        </button>
+                        <button class="btn-scenario" data-scenario="error" id="btn-error">
+                            <span class="scenario-num">05</span>
+                            <span class="scenario-name">BLE DISCONNECTED FALLBACK</span>
+                        </button>
+                    </div>
+
+                    <!-- Sim state description card -->
+                    <div class="sim-state-card cut-card-border">
+                        <div class="cut-card-inner">
+                            <h4 class="font-rajdhani orange-text" id="sim-state-title">System Status: Scanning</h4>
+                            <p class="font-rajdhani" id="sim-state-desc">The app is advertising its BLE services. The
+                                motorcycle's TFT console detects the key handshake beacon and begins negotiating
+                                security keys.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TFT DASHBOARD SIMULATOR FRAME -->
+                <div class="dashboard-chassis">
+                    <div class="chassis-lens">
+                        <div class="tft-screen" id="tft-screen-element">
+                            <!-- Left indicators and Clock -->
+                            <div class="tft-left-hud font-rajdhani">
+                                <div class="tft-clock-real" id="tft-clock">5:40 pm</div>
+                            </div>
+
+                            <!-- BLE Status Badge top-center -->
+                            <!-- MAIN HOCKEY-STICK RPM GAUGE -->
+                            <div class="tft-rpm-hud">
+                                <svg class="rpm-hockey-svg" viewBox="0 0 720 432">
+                                    <!-- Background ribbon track -->
+                                    <path class="rpm-track-hockey"
+                                        d="M 135 330 L 135 142.5 A 75 75 0 0 1 210 67.5 L 570 67.5" fill="none"
+                                        stroke="#2c2e30" stroke-width="36" stroke-linecap="butt" />
+                                    <!-- Live filling ribbon path -->
+                                    <path class="rpm-progress-hockey" id="rpm-progress-path"
+                                        d="M 135 330 L 135 142.5 A 75 75 0 0 1 210 67.5 L 570 67.5" fill="none"
+                                        stroke="url(#rpm-gradient-hockey)" stroke-width="36" stroke-linecap="butt" />
+                                    <defs>
+                                        <linearGradient id="rpm-gradient-hockey" x1="0%" y1="100%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#00ffcc" />
+                                            <stop offset="70%" stop-color="#00ffcc" />
+                                            <stop offset="85%" stop-color="#ffcc00" />
+                                            <stop offset="100%" stop-color="#ff3300" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+
+                                <!-- RPM Numbers placed along the track -->
+                                <div class="rpm-numbers font-rajdhani">
+                                    <span class="rpm-num num-1">1</span>
+                                    <span class="rpm-num num-2">2</span>
+                                    <span class="rpm-num num-3">3</span>
+                                    <span class="rpm-num num-4">4</span>
+                                    <span class="rpm-num num-5">5</span>
+                                    <span class="rpm-num num-6">6</span>
+                                    <span class="rpm-num num-7">7</span>
+                                    <span class="rpm-num num-8">8</span>
+                                    <span class="rpm-num num-9">9</span>
+                                    <span class="rpm-num num-10">10</span>
+                                </div>
+                            </div>
+
+                            <!-- CENTER LOOP NAVIGATION INFO -->
+                            <div class="tft-navigation-center">
+                                <div class="tbt-arrow-box" id="tbt-arrow-box">
+                                    <!-- Curved sharp left turn arrow -->
+                                    <svg viewBox="0 0 24 24" class="tbt-arrow-svg">
+                                        <path fill="currentColor"
+                                            d="M19 19v-6a3 3 0 0 0-3-3H8.83l2.59 2.59L10 14l-6-6 6-6 1.41 1.41L8.83 6H16a5 5 0 0 1 5 5v8h-2z" />
+                                    </svg>
+                                </div>
+                                <div class="tbt-text-box font-rajdhani">
+                                    <span class="tbt-instruction" id="tbt-instruction">Sharp left after</span>
+                                    <span class="tbt-road-name" id="tbt-road-name">Hotel Yermala...</span>
+                                    <div class="tbt-distance-badge">
+                                        <span class="tbt-dist font-oswald" id="tbt-dist">200 m</span>
+                                        <span class="gps-badge">GPS</span>
+                                    </div>
+                                    <div class="tbt-eta-remain">
+                                        <svg viewBox="0 0 24 24" class="flag-icon">
+                                            <path fill="currentColor" d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z" />
+                                        </svg>
+                                        <div class="tbt-eta-text">
+                                            <span id="tbt-time">20 min</span>
+                                            <span id="tbt-distance-rem">6.4 km</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RIGHT SIDE PANEL (GEAR, SPEED, RIDE MODES) -->
+                            <div class="tft-right-hud font-rajdhani">
+                                <!-- Massive Gear Indicator -->
+                                <div class="tft-gear-real font-oswald text-green" id="tft-gear">N</div>
+
+                                <!-- Action Pills -->
+                                <div class="tft-pills-container">
+                                    <div class="mode-pill pill-blue">
+                                        <svg viewBox="0 0 24 24" class="pill-icon"
+                                            style="width: 10px; height: 10px; fill: currentColor;">
+                                            <path
+                                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                                        </svg>
+                                        <span id="tft-temp-status">Low</span>
+                                    </div>
+                                    <div class="mode-pill pill-grey" id="tft-ride-mode">Rain</div>
+                                </div>
+
+                                <!-- Speedometer Horizontal Row -->
+                                <div class="tft-speedometer-row">
+                                    <div class="speed-slot slot-empty" id="speed-slot-1">
+                                        <svg viewBox="0 0 24 24" class="slot-empty-icon">
+                                            <line x1="4" y1="20" x2="20" y2="4" stroke="currentColor"
+                                                stroke-width="2" />
+                                        </svg>
+                                        <span class="speed-digit" id="speed-digit-1"></span>
+                                    </div>
+                                    <div class="speed-slot slot-empty" id="speed-slot-2">
+                                        <svg viewBox="0 0 24 24" class="slot-empty-icon">
+                                            <line x1="4" y1="20" x2="20" y2="4" stroke="currentColor"
+                                                stroke-width="2" />
+                                        </svg>
+                                        <span class="speed-digit" id="speed-digit-2"></span>
+                                    </div>
+                                    <div class="speed-slot active-digit" id="speed-slot-3">
+                                        <svg viewBox="0 0 24 24" class="slot-empty-icon">
+                                            <line x1="4" y1="20" x2="20" y2="4" stroke="currentColor"
+                                                stroke-width="2" />
+                                        </svg>
+                                        <span class="speed-digit" id="speed-digit-3">0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BOTTOM FUEL STATUS (LEFT SIDE) -->
+                            <div class="tft-fuel-box font-rajdhani">
+                                <svg viewBox="0 0 24 24" class="fuel-icon"
+                                    style="fill: #FFD600; display: inline-block;">
+                                    <path
+                                        d="M19.78 12.11L18 10.33V5.5A2.5 2.5 0 0 0 15.5 3H8.5A2.5 2.5 0 0 0 6 5.5v13A2.5 2.5 0 0 0 8.5 21h7a2.5 2.5 0 0 0 2.5-2.5v-4.67l1.78-1.78a1 1 0 0 0 0-1.41a1 1 0 0 0-1-.53zM15 18H9v-2h6v2zm0-4H9V9h6v5zm-1-8H10V5h4v1z" />
+                                </svg>
+                                <span class="fuel-value text-red" id="tft-fuel-range">100km</span>
+                            </div>
+
+                            <!-- BOTTOM DATA STRIP -->
+                            <div class="tft-bottom-strip font-rajdhani">
+                                <div class="strip-item">
+                                    <span class="strip-label">Odometer</span>
+                                    <span class="strip-value font-oswald" id="strip-odo">1 570 km</span>
+                                </div>
+                                <div class="strip-item">
+                                    <span class="strip-label">Fuel Range</span>
+                                    <span class="strip-value font-oswald" id="strip-fuel">100 km</span>
+                                </div>
+                                <div class="strip-item">
+                                    <span class="strip-label">Trip 1</span>
+                                    <span class="strip-value font-oswald" id="strip-trip">121.4 km</span>
+                                </div>
+                                <div class="strip-item">
+                                    <span class="strip-label">Ø Cons. 1</span>
+                                    <span class="strip-value font-oswald" id="strip-fuel-cons">26 km/L</span>
+                                </div>
+                            </div>
+
+                            <!-- BLE DISCONNECTED MODAL OVERLAY -->
+                            <div class="tft-error-overlay font-rajdhani" id="tft-disconnect-overlay">
+                                <div class="error-window cut-card-border" style="--card-cut: 14px;">
+                                    <div class="cut-card-inner error-bg-pulse">
+                                        <svg viewBox="0 0 24 24" class="error-warning-icon">
+                                            <path fill="currentColor"
+                                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                                        </svg>
+                                        <h3 class="font-oswald uppercase text-red">CONNECTION FAILURE</h3>
+                                        <p>AES-128 cryptographic key verification failed.</p>
+                                        <p class="text-secondary smaller">Error: BLE_TIMEOUT_PERIODIC_KEEPALIVE_EXPIRED
+                                        </p>
+                                        <div class="retry-bar"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Rugged dashboard details -->
+                    <div class="dash-bezel-bottom font-rajdhani">
+                        <span>LC8c Adventure Series</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LIVE TELEMETRY LOGS & DIGITAL ENGINE READOUTS -->
+            <div class="telemetry-log-section">
+                <h3 class="widget-subtitle font-rajdhani">VEHICLE ENGINE DATA (BOSCH PRPC SUBSCRIBER)</h3>
+                <div class="telemetry-readout-grid">
+
+                    <div class="telemetry-readout-card cut-card-border" style="--card-cut: 8px;">
+                        <div class="cut-card-inner">
+                            <span class="stat-label font-rajdhani">ENGINE RPM</span>
+                            <div class="stat-value-group">
+                                <span class="stat-number font-oswald" id="telemetry-rpm">0</span>
+                                <span class="stat-unit font-rajdhani">RPM</span>
+                            </div>
+                            <!-- Small dynamic graph bar -->
+                            <div class="stat-bar-container">
+                                <div class="stat-bar-fill orange-bg" id="bar-fill-rpm" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="telemetry-readout-card cut-card-border" style="--card-cut: 8px;">
+                        <div class="cut-card-inner">
+                            <span class="stat-label font-rajdhani">VEHICLE SPEED</span>
+                            <div class="stat-value-group">
+                                <span class="stat-number font-oswald" id="telemetry-speed">0</span>
+                                <span class="stat-unit font-rajdhani">KM/H</span>
+                            </div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar-fill orange-bg" id="bar-fill-speed" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="telemetry-readout-card cut-card-border" style="--card-cut: 8px;">
+                        <div class="cut-card-inner">
+                            <span class="stat-label font-rajdhani">GEAR SELECTION</span>
+                            <div class="stat-value-group">
+                                <span class="stat-number font-oswald" id="telemetry-gear">N</span>
+                                <span class="stat-unit font-rajdhani">GEAR</span>
+                            </div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar-fill green-bg" id="bar-fill-gear" style="width: 15%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="telemetry-readout-card cut-card-border" style="--card-cut: 8px;">
+                        <div class="cut-card-inner">
+                            <span class="stat-label font-rajdhani">BATTERY POTENTIAL</span>
+                            <div class="stat-value-group">
+                                <span class="stat-number font-oswald" id="telemetry-volt">12.6</span>
+                                <span class="stat-unit font-rajdhani">V</span>
+                            </div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar-fill green-bg" id="bar-fill-volt" style="width: 78%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="telemetry-readout-card cut-card-border" style="--card-cut: 8px;">
+                        <div class="cut-card-inner">
+                            <span class="stat-label font-rajdhani">COOLANT TEMPERATURE</span>
+                            <div class="stat-value-group">
+                                <span class="stat-number font-oswald" id="telemetry-coolant">78</span>
+                                <span class="stat-unit font-rajdhani">°C</span>
+                            </div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar-fill orange-bg" id="bar-fill-coolant" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="telemetry-readout-card cut-card-border" style="--card-cut: 8px;">
+                        <div class="cut-card-inner">
+                            <span class="stat-label font-rajdhani">TOTAL ODOMETER</span>
+                            <div class="stat-value-group">
+                                <span class="stat-number font-oswald" id="telemetry-odo">14,284</span>
+                                <span class="stat-unit font-rajdhani">KM</span>
+                            </div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar-fill"
+                                    style="width: 100%; background-color: var(--ktm-surface-highlight);"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FEATURE GRID (PERFORMANCE SPECIFICATIONS) -->
+    <section class="features-section" id="features">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">ENGINEERED FOR HIGH PERFORMANCE</h2>
+                <div class="section-divider"></div>
+                <p class="section-desc">
+                    Unlike standard companion apps, RideConnect operates with hard-real-time priority queues and secure
+                    low-level Bluetooth handshakes.
+                </p>
+            </div>
+
+            <!-- COMPATIBLE BIKES CAPSULES -->
+            <div class="compatibility-container">
+                <h3 class="compatibility-title font-oswald text-transform-uppercase"><span
+                        class="text-orange">COMPATIBLE</span> KTM MODELS</h3>
+                <div class="compatibility-badges font-rajdhani">
+                    <div class="bike-badge cut-card-border" style="--card-cut: 8px;">
+                        <div class="cut-card-inner">
+                            <span class="bike-brand">KTM DUKE</span>
+                            <span class="bike-model">390</span>
+                        </div>
+                    </div>
+                    <div class="bike-badge cut-card-border" style="--card-cut: 8px;">
+                        <div class="cut-card-inner">
+                            <span class="bike-brand">KTM DUKE</span>
+                            <span class="bike-model">250</span>
+                        </div>
+                    </div>
+                    <div class="bike-badge cut-card-border" style="--card-cut: 8px;">
+                        <div class="cut-card-inner">
+                            <span class="bike-brand">KTM ADVENTURE</span>
+                            <span class="bike-model">390</span>
+                        </div>
+                    </div>
+                    <div class="bike-badge cut-card-border" style="--card-cut: 8px;">
+                        <div class="cut-card-inner">
+                            <span class="bike-brand">KTM ADVENTURE</span>
+                            <span class="bike-model">390S</span>
+                        </div>
+                    </div>
+                    <div class="bike-badge cut-card-border" style="--card-cut: 8px;">
+                        <div class="cut-card-inner">
+                            <span class="bike-brand">KTM ADVENTURE</span>
+                            <span class="bike-model">390R</span>
+                        </div>
+                    </div>
+                    <div class="bike-badge cut-card-border" style="--card-cut: 8px;">
+                        <div class="cut-card-inner">
+                            <span class="bike-brand">KTM ADVENTURE</span>
+                            <span class="bike-model">390X</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <!-- Feature Card 1 -->
+                <div class="feature-card cut-card-border" style="--card-cut: 20px;">
+                    <div class="cut-card-inner">
+                        <div class="feature-icon-box">
+                            <!-- GATT / Pipeline Icon -->
+                            <svg viewBox="0 0 24 24" class="svg-feature">
+                                <path fill="currentColor"
+                                    d="M19 15v3c0 .55-.45 1-1 1h-3v2h3c1.66 0 3-1.34 3-3v-3h-2zm-3-13h-3v2h3c.55 0 1 .45 1 1v3h2V5c0-1.66-1.34-3-3-3zM8 2H5C3.34 2 2 3.34 2 5v3h2V5c0-.55.45-1 1-1h3V2zM4 15H2v3c0 1.66 1.34 3 3 3h3v-2H5c-.55 0-1-.45-1-1v-3zm12-5V8c0-2.21-1.79-4-4-4S8 5.79 8 8v2c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2zm-6-2c0-1.1.9-2 2-2s2 .9 2 2v2h-4V8zm4 7c0 .55-.45 1-1 1s-1-.45-1-1v-2c0-.55.45-1 1-1s1 .45 1 1v2z" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-card-title">GATT Mutex Pipeline</h3>
+                        <p class="feature-card-text">
+                            Implements a strict, single-threaded Mutex BLE write queue. Re-orders navigation payloads
+                            and telemetry packets to guarantee sequential delivery, applying 3x exponential backoff
+                            retries when packet drops occur on the bike's receiver.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="feature-card cut-card-border" style="--card-cut: 20px;">
+                    <div class="cut-card-inner">
+                        <div class="feature-icon-box">
+                            <!-- Cryptographic key icon -->
+                            <svg viewBox="0 0 24 24" class="svg-feature">
+                                <path fill="currentColor"
+                                    d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-card-title">AES-CBC Cryptography</h3>
+                        <p class="feature-card-text">
+                            Bypasses manufacturer access limits via a reverse-engineered authentication suite. Executes
+                            a SHA-512 challenge key validation and maintains connection through a background daemon
+                            sending keepalive cryptographic packets every 1000ms.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="feature-card cut-card-border" style="--card-cut: 20px;">
+                    <div class="cut-card-inner">
+                        <div class="feature-icon-box">
+                            <!-- GPS / Map Route Icon -->
+                            <svg viewBox="0 0 24 24" class="svg-feature">
+                                <path fill="currentColor"
+                                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                            </svg>
+                        </div>
+                        <h3 class="feature-card-title">GPX Engine & Tracking</h3>
+                        <p class="feature-card-text">
+                            Saves telemetry and geographic route indicators into clean GPX 1.1 records. Leverages
+                            high-fidelity haversine equations to log real-time speeds, altitude deltas, and slopes,
+                            exportable directly to Strava, Garmin, or Komoot.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graphic Feature Banner -->
+            <div class="feature-showcase-banner cut-card-border" style="--card-cut: 24px;">
+                <div class="cut-card-inner">
+                    <div class="banner-grid">
+                        <div class="banner-text">
+                            <h3 class="font-oswald uppercase font-size-large">RIDE DATA EXTRACTION ENGINE</h3>
+                            <p class="font-rajdhani">
+                                By reading Android accessibility notification intents, RideConnect parses complex
+                                driving routes and updates directions within 10 milliseconds of turn notifications. It
+                                requires zero central web servers, ensuring your location data is strictly kept offline.
+                            </p>
+                            <div class="banner-stats font-rajdhani">
+                                <div class="b-stat">
+                                    <span class="b-stat-val font-oswald text-orange">0ms</span>
+                                    <span class="b-stat-lbl">Cloud Latency</span>
+                                </div>
+                                <div class="b-stat">
+                                    <span class="b-stat-val font-oswald text-orange">100%</span>
+                                    <span class="b-stat-lbl">Offline Security</span>
+                                </div>
+                                <div class="b-stat">
+                                    <span class="b-stat-val font-oswald text-orange">58</span>
+                                    <span class="b-stat-lbl">Maneuver Codes</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="banner-image">
+                            <img src="Assets/Feature Showcase Images.png" alt="Ride Statistics and Route Chart Visuals">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- STANDALONE ARCHITECTURE BLUEPRINT SECTION -->
+    <section class="blueprint-section" id="blueprint">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">SYSTEM ARCHITECTURE BLUEPRINT</h2>
+                <div class="section-divider"></div>
+                <p class="section-desc">
+                    An in-depth mapping of the RideConnect system architecture, detail integrations, and sequential
+                    Bluetooth communication pathways.
+                </p>
+            </div>
+            <div class="blueprint-container cut-card-border" style="--card-cut: 24px;">
+                <div class="cut-card-inner cursor-zoom" data-zoom-img="Assets/Exploded UI Asset.png">
+                    <img src="Assets/Exploded UI Asset.png"
+                        alt="RideConnect System Architecture & BLE Integration Diagram" class="blueprint-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APP INTERFACE SHOWCASE (VISUAL GALLERY WITH LIGHTBOX) -->
+    <section class="gallery-section" id="gallery">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">COMPANION APP INTERFACE</h2>
+                <div class="section-divider"></div>
+                <p class="section-desc">
+                    Inspect the technical UI layout of the RideConnect Android application. Toggle tabs to see different
+                    parts of the mobile configuration suite. Click on any screenshot to inspect details.
+                </p>
+            </div>
+
+            <!-- Tab Toggles -->
+            <div class="gallery-tabs font-rajdhani">
+                <button class="gallery-tab-btn active" data-gallery-tab="screens">CONSOLE SCREENS</button>
+                <button class="gallery-tab-btn" data-gallery-tab="telemetry">RIDE TELEMETRY</button>
+            </div>
+
+            <!-- Gallery Panels -->
+            <div class="gallery-content-wrapper">
+
+                <!-- Tab Panel 1: Screens -->
+                <div class="gallery-panel active" id="gallery-panel-screens">
+                    <div class="gallery-grid">
+                        <div class="gallery-card cut-card-border cursor-zoom" data-zoom-img="Assets/MainScreen.png.png">
+                            <div class="cut-card-inner">
+                                <img src="Assets/MainScreen.png.png" alt="RideConnect Home Dashboard Screen"
+                                    class="gallery-img">
+                                <div class="gallery-caption font-rajdhani">App Home Status & Device Scanner</div>
+                            </div>
+                        </div>
+                        <div class="gallery-card cut-card-border cursor-zoom"
+                            data-zoom-img="Assets/OtherScreens.png.png">
+                            <div class="cut-card-inner">
+                                <img src="Assets/OtherScreens.png.png" alt="Notification & BLE Configuration Settings"
+                                    class="gallery-img">
+                                <div class="gallery-caption font-rajdhani">Configuration & BLE Command Suite</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Panel 2: Telemetry -->
+                <div class="gallery-panel" id="gallery-panel-telemetry">
+                    <div class="gallery-grid single-item">
+                        <div class="gallery-card cut-card-border cursor-zoom" data-zoom-img="Assets/TeliData.png.png">
+                            <div class="cut-card-inner">
+                                <img src="Assets/TeliData.png.png" alt="Live Telemetry Graph Overlay"
+                                    class="gallery-img">
+                                <div class="gallery-caption font-rajdhani">Live Speed/Elevation Profiles & GPX Imports
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- STANDALONE CTA BANNER SECTION -->
+    <section class="cta-banner-section">
+        <div class="cta-banner-container cursor-zoom" data-zoom-img="Assets/CTA Banner.png">
+            <img src="Assets/CTA Banner.png" alt="RideConnect: Your Ride. Connected. Visual Summary Dashboard">
+        </div>
+    </section>
+
+    <!-- INTERACTIVE VISUAL SETUP GUIDE -->
+    <section class="setup-section" id="setup">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">INSTALLATION & PAIRING SYSTEM</h2>
+                <div class="section-divider"></div>
+                <p class="section-desc">
+                    Follow this onboarding timeline to compile, install, and sync the RideConnect application onto your
+                    phone and motorcycle console.
+                </p>
+            </div>
+
+
+
+            <!-- Onboarding Walkthrough Content -->
+            <div class="setup-mode-content active" id="setup-content-walkthrough">
+                <div class="setup-timeline-layout">
+
+                    <!-- Steps navigation checklist (Left panel) -->
+                    <div class="timeline-navigation font-rajdhani">
+                        <div class="timeline-track-line"></div>
+
+                        <div class="timeline-step-link active" data-step="0">
+                            <span class="timeline-badge">01</span>
+                            <span class="timeline-title">Scan App QR</span>
+                        </div>
+                        <div class="timeline-step-link" data-step="1">
+                            <span class="timeline-badge">02</span>
+                            <span class="timeline-title">Install APK</span>
+                        </div>
+                        <div class="timeline-step-link" data-step="2">
+                            <span class="timeline-badge">03</span>
+                            <span class="timeline-title">Boot App</span>
+                        </div>
+                        <div class="timeline-step-link" data-step="3">
+                            <span class="timeline-badge">04</span>
+                            <span class="timeline-title">Notification Grant</span>
+                        </div>
+                        <div class="timeline-step-link" data-step="4">
+                            <span class="timeline-badge">05</span>
+                            <span class="timeline-title">System Settings</span>
+                        </div>
+                        <div class="timeline-step-link" data-step="5">
+                            <span class="timeline-badge">06</span>
+                            <span class="timeline-title">Confirm Access</span>
+                        </div>
+                        <div class="timeline-step-link" data-step="6">
+                            <span class="timeline-badge">07</span>
+                            <span class="timeline-title">Scan Bluetooth</span>
+                        </div>
+                        <div class="timeline-step-link" data-step="7">
+                            <span class="timeline-badge">08</span>
+                            <span class="timeline-title">BLE Permissions</span>
+                        </div>
+                        <div class="timeline-step-link" data-step="8">
+                            <span class="timeline-badge">09</span>
+                            <span class="timeline-title">Choose Device</span>
+                        </div>
+                        <div class="timeline-step-link" data-step="9">
+                            <span class="timeline-badge">10</span>
+                            <span class="timeline-title">Bike Settings</span>
+                        </div>
+                        <div class="timeline-step-link" data-step="10">
+                            <span class="timeline-badge">11</span>
+                            <span class="timeline-title">TFT Pairing</span>
+                        </div>
+                        <div class="timeline-step-link" data-step="11">
+                            <span class="timeline-badge">12</span>
+                            <span class="timeline-title">Accept Request</span>
+                        </div>
+                        <div class="timeline-step-link" data-step="12">
+                            <span class="timeline-badge">13</span>
+                            <span class="timeline-title">Sync Complete</span>
+                        </div>
+                        <div class="timeline-step-link" data-step="13">
+                            <span class="timeline-badge">14</span>
+                            <span class="timeline-title">Console Active</span>
+                        </div>
+                    </div>
+
+                    <!-- Step details inspector (Right panel) -->
+                    <div class="timeline-inspector-card cut-card-border" style="--card-cut: 20px;">
+                        <div class="cut-card-inner">
+                            <div class="inspector-layout">
+                                <div class="inspector-image-container cursor-zoom" id="step-zoom-trigger">
+                                    <img src="Assets/How To/1 - Scan App.png" alt="Step Screenshot" id="step-image"
+                                        class="inspector-image">
+                                </div>
+                                <div class="inspector-info font-rajdhani">
+                                    <div class="step-counter font-oswald text-orange" id="step-badge">STEP 01/14</div>
+                                    <h3 class="inspector-title font-oswald text-transform-uppercase" id="step-title">
+                                        Scan Application QR Code</h3>
+                                    <p class="inspector-desc" id="step-desc">
+                                        Scan the QR code or click the download link to download the native Android
+                                        application bundle (.apk) directly to your local file system.
+                                    </p>
+                                    <div class="inspector-nav font-oswald">
+                                        <button class="btn-cut-secondary" id="step-prev-btn">
+                                            <span class="btn-inner">PREVIOUS</span>
+                                        </button>
+                                        <button class="btn-cut-primary" id="step-next-btn">
+                                            <span class="btn-inner">NEXT STEP</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </section>
+
+
+
+    <!-- FOOTER SECTION -->
+    <footer class="footer-section">
+        <div class="section-container">
+            <div class="footer-grid">
+                <div class="footer-brand-column">
+                    <a href="#" class="footer-logo">
+                        <img src="Assets/RideConnect.png" alt="RideConnect Logo" class="logo-image">
+                    </a>
+                    <p class="font-rajdhani footer-about">
+                        High-fidelity Bluetooth Low Energy bridging software connecting mobile phones to KTM Gen 3 TFT
+                        dashboards. Built by motorcycle enthusiasts, for motorcycle enthusiasts.
+                    </p>
+                </div>
+                <div class="footer-links-column font-rajdhani">
+                    <h4 class="font-oswald uppercase text-orange">Navigation</h4>
+                    <ul>
+                        <li><a href="#simulator">TFT Simulator</a></li>
+                        <li><a href="#features">Specifications</a></li>
+                        <li><a href="#gallery">Companion App</a></li>
+                        <li><a href="#setup">Setup Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-column font-rajdhani">
+                    <h4 class="font-oswald uppercase text-orange">Developer</h4>
+                    <ul>
+                        <li><a href="https://akshayykadam.github.io/" target="_blank">Official Website</a></li>
+                        <li><a href="https://akshayykadam.github.io/" target="_blank">Developer Portfolio</a></li>
+                        <li><a href="https://akshayykadam.github.io/" target="_blank">Contact Developer</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom font-rajdhani">
+                <div class="footer-copyright">
+                    © 2026 RideConnect. Developed by <a href="https://akshayykadam.github.io/" target="_blank"
+                        style="color: var(--ktm-orange); font-weight: 700;">Akshay Kadam</a>.
+                </div>
+                <div class="footer-disclaimer text-tertiary">
+                    <strong>DISCLAIMER:</strong> This is a third-party application. It is not manufactured, endorsed,
+                    licensed, or associated with KTM Sportmotorcycle GmbH, KTM AG, or Bosch GmbH in any capacity. Ride
+                    at your own risk.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX MODAL OVERLAY FOR SCREENSHOT DETAILS -->
+    <div class="lightbox-modal" id="lightbox-modal">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-zoom-img" alt="Zoomed Screenshot">
+        <div class="lightbox-caption font-rajdhani" id="lightbox-caption">Zoomed view</div>
+    </div>
+
+    <!-- Script file -->
+    <script src="app.js"></script>
+</body>
+
+</html>
