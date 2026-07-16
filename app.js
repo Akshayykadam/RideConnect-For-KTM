@@ -212,6 +212,25 @@ let liveTelemetry = {
     fuelCons: "26 km/L"
 };
 
+// Disable scroll restoration to prevent browser from auto-scrolling down on load
+if ('history' in window) {
+    window.history.scrollRestoration = 'manual';
+}
+
+// Force scroll to top on page load if no hash exists in URL
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        if (!window.location.hash) {
+            window.scrollTo(0, 0);
+        } else {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, 50);
+});
+
 // ----------------------------------------------------
 // DOM LOAD INIT
 // ----------------------------------------------------
@@ -611,10 +630,10 @@ function initSetupTimeline() {
     });
 
     // Load first step initially
-    showStep(0);
+    showStep(0, true);
 }
 
-function showStep(index) {
+function showStep(index, preventScroll = false) {
     if (index < 0 || index >= STEP_DATA.length) return;
     
     activeSetupStep = index;
@@ -625,8 +644,10 @@ function showStep(index) {
     stepLinks.forEach((link, idx) => {
         if (idx === index) {
             link.classList.add("active");
-            // Scroll list row into center view inside the layout
-            link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            if (!preventScroll) {
+                // Scroll list row into center view inside the layout
+                link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            }
         } else {
             link.classList.remove("active");
         }
