@@ -623,14 +623,20 @@ section {
 /* TFT CHASSIS FRAME */
 .tft-chassis-container {
     width: 100%;
-    overflow: hidden;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+}
+
+.tft-scale-wrapper {
+    --scale: 1;
+    width: calc(760px * var(--scale));
+    height: calc(510px * var(--scale));
+    flex-shrink: 0;
+    transform: scale(var(--scale));
+    transform-origin: top left;
 }
 
 .dashboard-chassis {
-    flex-shrink: 0;
     width: 760px;
     background: radial-gradient(circle at top left, #2c2c30 0%, #101012 60%, #050505 100%);
     border: 6px solid #1a1a1d;
@@ -647,9 +653,6 @@ section {
             0 calc(100% - 24px),
             0 15px);
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    transform-origin: top center;
 }
 
 .chassis-lens {
@@ -2128,10 +2131,8 @@ section {
         height: auto;
     }
 
-    .dashboard-chassis {
-        transform: translateX(-50%) scale(0.88);
-        transform-origin: top center;
-        margin-bottom: -50px;
+    .tft-scale-wrapper {
+        --scale: 0.88;
     }
 
     .footer-grid {
@@ -2141,26 +2142,20 @@ section {
 }
 
 @media (max-width: 680px) {
-    .dashboard-chassis {
-        transform: translateX(-50%) scale(0.78);
-        transform-origin: top center;
-        margin-bottom: -100px;
+    .tft-scale-wrapper {
+        --scale: 0.78;
     }
 }
 
 @media (max-width: 580px) {
-    .dashboard-chassis {
-        transform: translateX(-50%) scale(0.58);
-        transform-origin: top center;
-        margin-bottom: -190px;
+    .tft-scale-wrapper {
+        --scale: 0.58;
     }
 }
 
 @media (max-width: 480px) {
-    .dashboard-chassis {
-        transform: translateX(-50%) scale(0.5);
-        transform-origin: top center;
-        margin-bottom: -225px;
+    .tft-scale-wrapper {
+        --scale: 0.5;
     }
 
     .timeline-navigation::-webkit-scrollbar {
@@ -2174,10 +2169,8 @@ section {
 }
 
 @media (max-width: 400px) {
-    .dashboard-chassis {
-        transform: translateX(-50%) scale(0.44);
-        transform-origin: top center;
-        margin-bottom: -245px;
+    .tft-scale-wrapper {
+        --scale: 0.44;
     }
 
     .bike-badge {
@@ -2194,10 +2187,8 @@ section {
 }
 
 @media (max-width: 350px) {
-    .dashboard-chassis {
-        transform: translateX(-50%) scale(0.36);
-        transform-origin: top center;
-        margin-bottom: -275px;
+    .tft-scale-wrapper {
+        --scale: 0.36;
     }
 }
 
