@@ -621,7 +621,17 @@ section {
 }
 
 /* TFT CHASSIS FRAME */
+.tft-chassis-container {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 .dashboard-chassis {
+    flex-shrink: 0;
+    width: 760px;
     background: radial-gradient(circle at top left, #2c2c30 0%, #101012 60%, #050505 100%);
     border: 6px solid #1a1a1d;
     box-shadow:
@@ -637,9 +647,9 @@ section {
             0 calc(100% - 24px),
             0 15px);
     position: relative;
-    max-width: 760px;
-    margin: 0 auto;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transform-origin: top center;
 }
 
 .chassis-lens {
@@ -2119,9 +2129,9 @@ section {
     }
 
     .dashboard-chassis {
-        transform: scale(0.92);
-        transform-origin: center top;
-        margin-bottom: -40px;
+        transform: translateX(-50%) scale(0.88);
+        transform-origin: top center;
+        margin-bottom: -50px;
     }
 
     .footer-grid {
@@ -2132,25 +2142,25 @@ section {
 
 @media (max-width: 680px) {
     .dashboard-chassis {
-        transform: scale(0.8);
-        transform-origin: center top;
-        margin-bottom: -90px;
+        transform: translateX(-50%) scale(0.78);
+        transform-origin: top center;
+        margin-bottom: -100px;
     }
 }
 
 @media (max-width: 580px) {
     .dashboard-chassis {
-        transform: scale(0.68);
-        transform-origin: center top;
-        margin-bottom: -150px;
+        transform: translateX(-50%) scale(0.58);
+        transform-origin: top center;
+        margin-bottom: -190px;
     }
 }
 
 @media (max-width: 480px) {
     .dashboard-chassis {
-        transform: scale(0.56);
-        transform-origin: center top;
-        margin-bottom: -200px;
+        transform: translateX(-50%) scale(0.5);
+        transform-origin: top center;
+        margin-bottom: -225px;
     }
 
     .timeline-navigation::-webkit-scrollbar {
@@ -2165,9 +2175,9 @@ section {
 
 @media (max-width: 400px) {
     .dashboard-chassis {
-        transform: scale(0.48);
-        transform-origin: center top;
-        margin-bottom: -230px;
+        transform: translateX(-50%) scale(0.44);
+        transform-origin: top center;
+        margin-bottom: -245px;
     }
 
     .bike-badge {
@@ -2185,9 +2195,9 @@ section {
 
 @media (max-width: 350px) {
     .dashboard-chassis {
-        transform: scale(0.41);
-        transform-origin: center top;
-        margin-bottom: -260px;
+        transform: translateX(-50%) scale(0.36);
+        transform-origin: top center;
+        margin-bottom: -275px;
     }
 }
 
