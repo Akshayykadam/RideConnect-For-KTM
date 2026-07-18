@@ -122,13 +122,13 @@ const SCENARIOS = {
 
 const STEP_DATA = [
     {
-        title: "Scan Application QR Code",
-        desc: "Scan the QR code displayed on-screen or click <a href='https://drive.google.com/file/d/1LewjHG80CpoNd0A3vHhB8E2GZ8tqhxSk/view?usp=drive_link' target='_blank' style='color: var(--ktm-orange); font-weight: 700; text-decoration: underline;'>here</a> to download the native Android application bundle (.apk) directly from Google Drive.",
+        title: "Google Play Protect Scan",
+        desc: "Click <a href='https://drive.google.com/file/d/1LewjHG80CpoNd0A3vHhB8E2GZ8tqhxSk/view?usp=drive_link' target='_blank' style='color: var(--ktm-orange); font-weight: 700; text-decoration: underline;'>here</a> to download the native Android application bundle (.apk) directly from Google Drive. During installation, select <strong>Scan app</strong> on the Play Protect security prompt to verify the app.",
         img: "Assets/How To/1 - Scan App.png"
     },
     {
         title: "Initiate App Installation",
-        desc: "Locate the downloaded `.apk` package in your file manager and tap it. Agree to trigger the Android system package installer menu.",
+        desc: "Once the Google Play Protect security scan completes and confirms 'This app looks safe', tap <strong>Install</strong> to proceed with installing the companion application.",
         img: "Assets/How To/2 - Install.png"
     },
     {
