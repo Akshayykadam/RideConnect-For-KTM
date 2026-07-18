@@ -258,6 +258,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Lightbox modal configuration
     initLightbox();
+
+    // Premium scroll reveal animations
+    initScrollReveal();
+
+    // Navbar scroll state
+    initNavbarScroll();
+
+    // Hero parallax scroll effect
+    initHeroParallax();
 });
 
 // ----------------------------------------------------
@@ -736,4 +745,81 @@ function initLightbox() {
             modal.style.display = "none";
         }
     });
+}
+
+// ----------------------------------------------------
+// SCROLL REVEAL ANIMATION OBSERVER
+// ----------------------------------------------------
+function initScrollReveal() {
+    const revealElements = document.querySelectorAll('.reveal, .reveal-stagger, .reveal-left, .reveal-right, .reveal-scale');
+    
+    if (!revealElements.length) return;
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -60px 0px',
+        threshold: 0.12
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Once revealed, stop observing for performance
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    revealElements.forEach(el => {
+        revealObserver.observe(el);
+    });
+}
+
+// ----------------------------------------------------
+// NAVBAR SCROLL STATE
+// ----------------------------------------------------
+function initNavbarScroll() {
+    const navbar = document.getElementById('main-navbar');
+    if (!navbar) return;
+
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                if (window.scrollY > 60) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+}
+
+// ----------------------------------------------------
+// HERO BACKGROUND PARALLAX
+// ----------------------------------------------------
+function initHeroParallax() {
+    const heroBg = document.querySelector('.hero-bg-media');
+    if (!heroBg) return;
+
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrollY = window.scrollY;
+                if (scrollY < window.innerHeight) {
+                    // Translate background downwards at 30% scroll speed
+                    heroBg.style.transform = `translate3d(0, ${scrollY * 0.3}px, 0)`;
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
 }

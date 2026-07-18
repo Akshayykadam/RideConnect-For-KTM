@@ -26,6 +26,13 @@
 
 <body>
 
+    <!-- Premium Noise Texture Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Ambient Floating Orbs -->
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+
     <!-- STICKY NAVBAR -->
     <nav class="navbar" id="main-navbar">
         <div class="nav-container">
@@ -58,18 +65,19 @@
 
     <!-- HERO HEADER SECTION -->
     <header class="hero-section" id="hero">
+        <div class="hero-bg-media"></div>
         <div class="radial-glow"></div>
         <div class="hero-container text-right-layout">
             <div class="hero-content">
-                <div class="brand-badge-cut">
+                <div class="brand-badge-cut reveal">
                     <span>READY TO CONNECT</span>
                 </div>
-                <h1 class="hero-title">GET THE KTM TFT NAVIGATION SYSTEM YOUR BIKE DESERVES</h1>
-                <p class="hero-subtitle">
+                <h1 class="hero-title reveal">GET THE KTM TFT NAVIGATION SYSTEM YOUR BIKE DESERVES</h1>
+                <p class="hero-subtitle reveal">
                     A serverless BLE client that hooks directly into your phone's navigation notifications to stream
                     turn-by-turn routing and real-time engine telemetry straight to your KTM's TFT console.
                 </p>
-                <div class="hero-actions">
+                <div class="hero-actions reveal">
                     <a href="https://drive.google.com/file/d/1LewjHG80CpoNd0A3vHhB8E2GZ8tqhxSk/view?usp=drive_link" target="_blank" class="btn-cut-primary hero-btn">
                         <span class="btn-inner">Download APK</span>
                     </a>
@@ -81,10 +89,13 @@
         </div>
     </header>
 
+    <!-- AMBIENT GLOW SEPARATOR -->
+    <div class="section-glow"></div>
+
     <!-- INTERACTIVE LIVE DASHBOARD SIMULATOR (THE TFT DISPLAY) -->
     <section class="simulator-section" id="simulator">
         <div class="section-container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2 class="section-title">LIVE INTERACTIVE TFT SIMULATOR</h2>
                 <div class="section-divider"></div>
                 <p class="section-desc">
@@ -93,7 +104,7 @@
                 </p>
             </div>
 
-            <div class="simulator-layout">
+            <div class="simulator-layout reveal">
                 <!-- SCENARIO CONTROLS (Console Command Board) -->
                 <div class="console-controls">
                     <h3 class="console-title font-rajdhani">SCENARIO CONTROLLER</h3>
@@ -313,7 +324,7 @@
             <!-- LIVE TELEMETRY LOGS & DIGITAL ENGINE READOUTS -->
             <div class="telemetry-log-section">
                 <h3 class="widget-subtitle font-rajdhani">VEHICLE ENGINE DATA (BOSCH PRPC SUBSCRIBER)</h3>
-                <div class="telemetry-readout-grid">
+                <div class="telemetry-readout-grid reveal-stagger">
 
                     <div class="telemetry-readout-card cut-card-border" style="--card-cut: 8px;">
                         <div class="cut-card-inner">
@@ -401,10 +412,13 @@
         </div>
     </section>
 
+    <!-- AMBIENT GLOW SEPARATOR -->
+    <div class="section-glow"></div>
+
     <!-- FEATURE GRID (PERFORMANCE SPECIFICATIONS) -->
     <section class="features-section" id="features">
         <div class="section-container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2 class="section-title">ENGINEERED FOR HIGH PERFORMANCE</h2>
                 <div class="section-divider"></div>
                 <p class="section-desc">
@@ -414,10 +428,10 @@
             </div>
 
             <!-- COMPATIBLE BIKES CAPSULES -->
-            <div class="compatibility-container">
+            <div class="compatibility-container reveal">
                 <h3 class="compatibility-title font-oswald text-transform-uppercase"><span
                         class="text-orange">COMPATIBLE</span> KTM MODELS</h3>
-                <div class="compatibility-badges font-rajdhani">
+                <div class="compatibility-badges font-rajdhani reveal-stagger">
                     <div class="bike-badge cut-card-border" style="--card-cut: 8px;">
                         <div class="cut-card-inner">
                             <span class="bike-brand">KTM DUKE</span>
@@ -457,7 +471,7 @@
                 </div>
             </div>
 
-            <div class="features-grid">
+            <div class="features-grid reveal-stagger">
                 <!-- Feature Card 1 -->
                 <div class="feature-card cut-card-border" style="--card-cut: 20px;">
                     <div class="cut-card-inner">
@@ -517,7 +531,7 @@
             </div>
 
             <!-- Graphic Feature Banner -->
-            <div class="feature-showcase-banner cut-card-border" style="--card-cut: 24px;">
+            <div class="feature-showcase-banner cut-card-border reveal-scale" style="--card-cut: 24px;">
                 <div class="cut-card-inner">
                     <div class="banner-grid">
                         <div class="banner-text">
@@ -550,10 +564,13 @@
             </div>
         </div>
     </section>
+    <!-- AMBIENT GLOW SEPARATOR -->
+    <div class="section-glow"></div>
+
     <!-- STANDALONE ARCHITECTURE BLUEPRINT SECTION -->
     <section class="blueprint-section" id="blueprint">
         <div class="section-container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2 class="section-title">SYSTEM ARCHITECTURE BLUEPRINT</h2>
                 <div class="section-divider"></div>
                 <p class="section-desc">
@@ -561,7 +578,7 @@
                     Bluetooth communication pathways.
                 </p>
             </div>
-            <div class="blueprint-container cut-card-border" style="--card-cut: 24px;">
+            <div class="blueprint-container cut-card-border reveal-scale" style="--card-cut: 24px;">
                 <div class="cut-card-inner cursor-zoom" data-zoom-img="Assets/Exploded UI Asset.png">
                     <img src="Assets/Exploded UI Asset.png"
                         alt="RideConnect System Architecture & BLE Integration Diagram" class="blueprint-img">
@@ -570,10 +587,13 @@
         </div>
     </section>
 
+    <!-- AMBIENT GLOW SEPARATOR -->
+    <div class="section-glow"></div>
+
     <!-- APP INTERFACE SHOWCASE (VISUAL GALLERY WITH LIGHTBOX) -->
     <section class="gallery-section" id="gallery">
         <div class="section-container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2 class="section-title">COMPANION APP INTERFACE</h2>
                 <div class="section-divider"></div>
                 <p class="section-desc">
@@ -583,7 +603,7 @@
             </div>
 
             <!-- Tab Toggles -->
-            <div class="gallery-tabs font-rajdhani">
+            <div class="gallery-tabs font-rajdhani reveal">
                 <button class="gallery-tab-btn active" data-gallery-tab="screens">CONSOLE SCREENS</button>
                 <button class="gallery-tab-btn" data-gallery-tab="telemetry">RIDE TELEMETRY</button>
             </div>
@@ -593,7 +613,7 @@
 
                 <!-- Tab Panel 1: Screens -->
                 <div class="gallery-panel active" id="gallery-panel-screens">
-                    <div class="gallery-grid">
+                    <div class="gallery-grid reveal-stagger">
                         <div class="gallery-card cut-card-border cursor-zoom" data-zoom-img="Assets/MainScreen.png.png">
                             <div class="cut-card-inner">
                                 <img src="Assets/MainScreen.png.png" alt="RideConnect Home Dashboard Screen"
@@ -614,7 +634,7 @@
 
                 <!-- Tab Panel 2: Telemetry -->
                 <div class="gallery-panel" id="gallery-panel-telemetry">
-                    <div class="gallery-grid single-item">
+                    <div class="gallery-grid single-item reveal-stagger">
                         <div class="gallery-card cut-card-border cursor-zoom" data-zoom-img="Assets/TeliData.png.png">
                             <div class="cut-card-inner">
                                 <img src="Assets/TeliData.png.png" alt="Live Telemetry Graph Overlay"
@@ -632,15 +652,18 @@
 
     <!-- STANDALONE CTA BANNER SECTION -->
     <section class="cta-banner-section">
-        <div class="cta-banner-container cursor-zoom" data-zoom-img="Assets/CTA Banner.png">
+        <div class="cta-banner-container cursor-zoom reveal-scale" data-zoom-img="Assets/CTA Banner.png">
             <img src="Assets/CTA Banner.png" alt="RideConnect: Your Ride. Connected. Visual Summary Dashboard">
         </div>
     </section>
 
+    <!-- AMBIENT GLOW SEPARATOR -->
+    <div class="section-glow"></div>
+
     <!-- INTERACTIVE VISUAL SETUP GUIDE -->
     <section class="setup-section" id="setup">
         <div class="section-container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2 class="section-title">INSTALLATION & PAIRING SYSTEM</h2>
                 <div class="section-divider"></div>
                 <p class="section-desc">
@@ -656,7 +679,7 @@
                 <div class="setup-timeline-layout">
 
                     <!-- Steps navigation checklist (Left panel) -->
-                    <div class="timeline-navigation font-rajdhani">
+                    <div class="timeline-navigation font-rajdhani reveal-stagger">
                         <div class="timeline-track-line"></div>
 
                         <div class="timeline-step-link active" data-step="0">
@@ -753,8 +776,6 @@
         </div>
     </section>
 
-
-
     <!-- FOOTER SECTION -->
     <footer class="footer-section">
         <div class="section-container">
@@ -780,9 +801,9 @@
                 <div class="footer-links-column font-rajdhani">
                     <h4 class="font-oswald uppercase text-orange">Developer</h4>
                     <ul>
-                        <li><a href="https://akshayykadam.github.io/" target="_blank">Official Website</a></li>
-                        <li><a href="https://akshayykadam.github.io/" target="_blank">Developer Portfolio</a></li>
-                        <li><a href="https://akshayykadam.github.io/" target="_blank">Contact Developer</a></li>
+                        <li><a href="https://akshayykadam.github.io/" target="_blank">Portfolio</a></li>
+                        <li><a href="https://www.instagram.com/akshayysk/" target="_blank">Instagram</a></li>
+                        <li><a href="mailto:asksoftlabs@gmail.com">Email</a></li>
                     </ul>
                 </div>
             </div>
