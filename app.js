@@ -123,7 +123,7 @@ const SCENARIOS = {
 const STEP_DATA = [
     {
         title: "Google Play Protect Scan",
-        desc: "Click <a href='https://drive.google.com/file/d/1LewjHG80CpoNd0A3vHhB8E2GZ8tqhxSk/view?usp=drive_link' target='_blank' style='color: var(--ktm-orange); font-weight: 700; text-decoration: underline;'>here</a> to download the native Android application bundle (.apk) directly from Google Drive. During installation, select <strong>Scan app</strong> on the Play Protect security prompt to verify the app.",
+        desc: "Click <a href='https://drive.google.com/file/d/1pzPQkR3e0wGVX2aprzoHcERSNILu34Ph/view?usp=sharing' target='_blank' style='color: var(--ktm-orange); font-weight: 700; text-decoration: underline;'>here</a> to download the native Android application bundle (.apk) directly from Google Drive. During installation, select <strong>Scan app</strong> on the Play Protect security prompt to verify the app.",
         img: "Assets/How To/1 - Scan App.png"
     },
     {
